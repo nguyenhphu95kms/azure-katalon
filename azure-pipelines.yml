@@ -14,10 +14,16 @@ parameters:
   values:
   - Chrome
   - Web Service
+
 - name: executionSuiteName
   displayName: Input Your Test Suite To Execute
   type: string
   default: All Test Cases
+
+- name: retryNumber
+  displayName: Input Your Retry Number To Re-Run Test Suites
+  type: number
+  default: 2
 
 variables:
   - name: vmImageName
@@ -28,6 +34,16 @@ variables:
 
   
 stages:
+- stage: "Set_up_environment_before_run_katalon_tests"
+  displayName: Set Up Environmnet Stage
+  jobs:
+  - job: Clone_Database
+    displayName: Clone Database
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: echo $(katalonApiKey)
+    - script: echo $(vmImageName)
 - stage: "Execute_Automation_Test_${{ variables.targetEnvironment }}"
   displayName: Execute Automation Stage
   jobs:
@@ -36,10 +52,25 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - script: echo $(katalonApiKey)
-    - script: echo $(vmImageName)
     - task: katalonTask@0
       displayName: 'Execute Katalon Studio project'
       inputs:
         version: '7.7.0'
-        executeArgs: '-apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/${{ parameters.executionSuiteName }}"'
+        executeArgs: '-apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=${{ parameters.retryNumber }} -statusDelay=15 -testSuitePath="Test Suites/${{ parameters.executionSuiteName }}"'
+- stage: "Clean_up_environment_before_run_katalon_tests"
+  displayName: Set Up Environmnet Stage
+  jobs:
+  - job: Notify_test_result_to_slack
+    displayName: Notify Test Result
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: echo $(katalonApiKey)
+    - script: echo $(vmImageName)
+  - job: Clean_up_environmnet
+    displayName: Notify Test Result
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: echo $(katalonApiKey)
+    - script: echo $(vmImageName)
