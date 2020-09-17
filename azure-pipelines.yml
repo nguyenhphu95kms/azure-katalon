@@ -12,7 +12,7 @@ variables:
   targetEnvironment: 'UAT'
   
 stages:
-- stage: Execute_Automation_Test_${{ variables.targetEnvironment }}
+- stage: "Execute_Automation_Test_${{ variables.targetEnvironment }}"
   displayName: Execute Automation Stage
   jobs:
   - job: Execute
