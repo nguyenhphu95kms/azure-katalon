@@ -70,7 +70,7 @@ stages:
       displayName: 'Execute Katalon Studio project'
       inputs:
         version: '${{ parameters.katalonVersion}}'
-        executeArgs: '-apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=${{ parameters.retryNumber }} -statusDelay=15 -testSuitePath="Test Suites/${{ parameters.executionSuiteName }}"'
+        executeArgs: '-reportFolder="./testReport" -apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=${{ parameters.retryNumber }} -statusDelay=15 -testSuitePath="Test Suites/${{ parameters.executionSuiteName }}"'
     
 - stage: "Clean_up_environment_before_run_katalon_tests"
   displayName: Clean Up Environmnet Stage
