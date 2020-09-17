@@ -6,6 +6,15 @@ trigger:
 resources:
 - repo: self
 
+parameters:
+- name: browserType
+  displayName: Select Browser Type To Execute Test
+  type: string
+  default: Chrome
+  values:
+  - Chrome
+  - Web Service
+
 variables:
   - name: vmImageName
     value: 'vs2017-win2016'
@@ -29,4 +38,4 @@ stages:
       displayName: 'Execute Katalon Studio project'
       inputs:
         version: '7.7.0'
-        executeArgs: '-apiKey="$(apiKey)" -browserType="Chrome" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
+        executeArgs: '-apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
