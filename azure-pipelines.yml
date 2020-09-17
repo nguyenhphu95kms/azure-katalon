@@ -11,7 +11,7 @@ variables:
   group: 'Katalon Studio'
   
 stages:
-- stage: Execute Automation Test ${{targetEnvironment}}
+- stage: Execute Automation Test ${{ variables.targetEnvironment }}
   displayName: Execute Automation Stage
   jobs:
   - job: Execute
