@@ -8,7 +8,7 @@ resources:
 
 variables:
   vmImageName: 'vs2017-win2016'
-  group: 'Katalon Studio'
+  group: 'KatalonStudio'
   targetEnvironment: 'UAT'
 
   
