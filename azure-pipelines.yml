@@ -58,7 +58,7 @@ stages:
         version: '7.7.0'
         executeArgs: '-apiKey="$(katalonApiKey)" -browserType="${{ parameters.browserType }}" -retry=${{ parameters.retryNumber }} -statusDelay=15 -testSuitePath="Test Suites/${{ parameters.executionSuiteName }}"'
 - stage: "Clean_up_environment_before_run_katalon_tests"
-  displayName: Set Up Environmnet Stage
+  displayName: Clean Up Environmnet Stage
   jobs:
   - job: Notify_test_result_to_slack
     displayName: Notify Test Result
@@ -68,7 +68,7 @@ stages:
     - script: echo $(katalonApiKey)
     - script: echo $(vmImageName)
   - job: Clean_up_environmnet
-    displayName: Notify Test Result
+    displayName: Clean up environment
     pool:
       vmImage: $(vmImageName)
     steps:
