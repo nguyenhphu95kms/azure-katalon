@@ -3,13 +3,23 @@
 trigger:
 - execute-job
 
-pool:
-  vmImage: 'vs2017-win2016'
+resources:
+- repo: self
 
-steps:
-
-- task: katalonTask@0
-  displayName: 'Execute Katalon Studio project'
-  inputs:
-    version: '7.7.0'
-    executeArgs: '-browserType="Chrome" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
+variables:
+  vmImageName: 'vs2017-win2016'
+  
+stages:
+- stage: Execute Automation Test ${{targetEnvironment}}
+  displayName: Execute Automation Stage
+  jobs:
+  - job: Execute
+    displayName: Execute Test
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: katalonTask@0
+      displayName: 'Execute Katalon Studio project'
+      inputs:
+        version: '7.7.0'
+        executeArgs: '-apiKey="a01c15e7-c5c7-4549-a721-76cab7a94e6a" -browserType="Chrome" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
