@@ -21,7 +21,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - script: echo $(apiKey)
+    - script: echo $(katalonApiKey)
     - task: katalonTask@0
       displayName: 'Execute Katalon Studio project'
       inputs:
