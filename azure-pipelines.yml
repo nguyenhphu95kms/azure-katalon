@@ -25,4 +25,4 @@ stages:
       displayName: 'Execute Katalon Studio project'
       inputs:
         version: '7.7.0'
-        executeArgs: '-apiKey="a01c15e7-c5c7-4549-a721-76cab7a94e6a" -browserType="Chrome" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
+        executeArgs: '-apiKey="$(apiKey)" -browserType="Chrome" -retry=2 -statusDelay=15 -testSuitePath="Test Suites/All Test Cases"'
